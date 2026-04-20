@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>File Viewer Libraries</title>
     <style>
       :root {
@@ -24,7 +24,11 @@
         margin: 0;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background:
-          radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 32%),
+          radial-gradient(
+            circle at top left,
+            rgba(15, 118, 110, 0.14),
+            transparent 32%
+          ),
           linear-gradient(160deg, #f6f1e8 0%, #eef4f4 55%, #f8fbfb 100%);
         color: var(--text);
       }
@@ -140,8 +144,9 @@
         <span class="tag">Static Distribution</span>
         <h1>File Viewer Libraries</h1>
         <p>
-          Контейнер раздаёт статические библиотеки для просмотра документов и файловых вложений.
-          Он предназначен для использования как отдельный сервис в составе дипломного проекта.
+          Контейнер раздаёт статические библиотеки для просмотра документов и
+          файловых вложений. Предназначен для универсального просмотра файлов в
+          1С:Предприятие.
         </p>
       </section>
 
@@ -151,11 +156,11 @@
           <div class="links">
             <a class="link-card" href="/libs/">
               <strong>/libs/</strong>
-              Набор отдельных JavaScript-библиотек для интеграции в клиентское приложение.
+              Набор отдельных JavaScript-библиотек для просмотра файлов.
             </a>
             <a class="link-card" href="/ViewerJS/">
               <strong>/ViewerJS/</strong>
-              Готовый web viewer для документов на базе ViewerJS.
+              Просмотр документов формата OpenDocumentFormat.
             </a>
             <a class="link-card" href="/healthz">
               <strong>/healthz</strong>
@@ -167,9 +172,14 @@
         <article class="panel">
           <h2>Состав библиотек</h2>
           <ul>
-            <li><code>pdf.min.js</code> и <code>pdf.worker.min.js</code> для PDF</li>
+            <li>
+              <code>pdf.min.js</code> и <code>pdf.worker.min.js</code> для PDF
+            </li>
             <li><code>mammoth.browser.min.js</code> для DOCX to HTML</li>
-            <li><code>jszip.min.js</code> и <code>docx-preview.min.js</code> для DOCX preview</li>
+            <li>
+              <code>jszip.min.js</code> и <code>docx-preview.min.js</code> для
+              DOCX preview
+            </li>
             <li><code>webodf.js</code> для ODF-документов</li>
             <li><code>ViewerJS</code> как bundled viewer</li>
           </ul>
@@ -181,14 +191,12 @@
             <li>Раздача через <code>nginx</code> в Docker-контейнере</li>
             <li>Кэширование статических ассетов с долгим TTL</li>
             <li><code>CORS</code>-заголовки для библиотечных ресурсов</li>
-            <li>Отдельный healthcheck для локального запуска и GitHub Actions</li>
+            <li>
+              Отдельный healthcheck для локального запуска и GitHub Actions
+            </li>
           </ul>
         </article>
       </section>
-
-      <p class="footer">
-        Сведения о сторонних компонентах собраны в репозиторном файле <code>THIRD_PARTY_NOTICES.md</code>.
-      </p>
     </main>
   </body>
 </html>
