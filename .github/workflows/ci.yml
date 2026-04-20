@@ -33,6 +33,12 @@ jobs:
       - name: Check bundled library
         run: curl --fail --silent --head http://127.0.0.1:8080/libs/pdf.min.js
 
+      - name: Check BSL console entrypoint
+        run: curl --fail --silent http://127.0.0.1:8080/bsl_console/ | grep "BSL-editor"
+
+      - name: Check BSL console Monaco loader
+        run: curl --fail --silent --head http://127.0.0.1:8080/bsl_console/vs/loader.js
+
       - name: Stop container
         if: always()
         run: docker stop file-viewer-test

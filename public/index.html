@@ -7,13 +7,15 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f4f1ea;
-        --panel: rgba(255, 255, 255, 0.82);
-        --line: rgba(27, 42, 65, 0.12);
-        --text: #1b2a41;
-        --muted: #53627a;
+        --bg-top: #f5efe2;
+        --bg-bottom: #ecf5f3;
+        --panel: rgba(255, 255, 255, 0.84);
+        --line: rgba(22, 43, 71, 0.12);
+        --text: #162b47;
+        --muted: #54657c;
         --accent: #0f766e;
-        --accent-soft: #d9f3ee;
+        --accent-soft: rgba(15, 118, 110, 0.14);
+        --shadow: 0 20px 48px rgba(22, 43, 71, 0.09);
       }
 
       * {
@@ -22,19 +24,16 @@
 
       body {
         margin: 0;
+        min-height: 100vh;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background:
-          radial-gradient(
-            circle at top left,
-            rgba(15, 118, 110, 0.14),
-            transparent 32%
-          ),
-          linear-gradient(160deg, #f6f1e8 0%, #eef4f4 55%, #f8fbfb 100%);
         color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(15, 118, 110, 0.18), transparent 30%),
+          linear-gradient(155deg, var(--bg-top) 0%, var(--bg-bottom) 58%, #f8fbfb 100%);
       }
 
       main {
-        width: min(1080px, calc(100% - 32px));
+        width: min(1120px, calc(100% - 32px));
         margin: 0 auto;
         padding: 40px 0 56px;
       }
@@ -43,9 +42,9 @@
       .panel {
         background: var(--panel);
         border: 1px solid var(--line);
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(27, 42, 65, 0.08);
-        backdrop-filter: blur(6px);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(8px);
       }
 
       .hero {
@@ -53,8 +52,10 @@
       }
 
       .tag {
-        display: inline-block;
-        padding: 6px 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
         border-radius: 999px;
         background: var(--accent-soft);
         color: var(--accent);
@@ -65,22 +66,44 @@
       }
 
       h1 {
-        margin: 16px 0 12px;
-        font-size: clamp(32px, 6vw, 54px);
-        line-height: 1.02;
+        margin: 16px 0 14px;
+        font-size: clamp(34px, 6vw, 56px);
+        line-height: 1.03;
       }
 
       p {
         margin: 0;
         color: var(--muted);
-        line-height: 1.7;
+        line-height: 1.72;
+      }
+
+      .hero-grid,
+      .grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .hero-grid {
+        margin-top: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .metric {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(22, 43, 71, 0.08);
+      }
+
+      .metric strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 15px;
       }
 
       .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 16px;
-        margin-top: 20px;
+        margin-top: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       }
 
       .panel {
@@ -120,21 +143,41 @@
 
       .link-card {
         display: block;
-        padding: 14px 16px;
-        border-radius: 14px;
+        padding: 15px 16px;
+        border-radius: 16px;
         border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.75);
+        background: rgba(255, 255, 255, 0.8);
       }
 
       .link-card strong {
         display: block;
+        margin-bottom: 6px;
         color: var(--text);
-        margin-bottom: 4px;
       }
 
       .footer {
         margin-top: 18px;
         font-size: 14px;
+      }
+
+      @media (max-width: 640px) {
+        main {
+          width: min(100% - 20px, 1120px);
+          padding-top: 20px;
+          padding-bottom: 28px;
+        }
+
+        .hero,
+        .panel {
+          border-radius: 18px;
+        }
+
+        .hero,
+        .panel,
+        .metric {
+          padding-left: 18px;
+          padding-right: 18px;
+        }
       }
     </style>
   </head>
@@ -144,10 +187,25 @@
         <span class="tag">Static Distribution</span>
         <h1>File Viewer Libraries</h1>
         <p>
-          Контейнер раздаёт статические библиотеки для просмотра документов и
-          файловых вложений. Предназначен для универсального просмотра файлов в
-          1С:Предприятие.
+          Контейнер раздаёт статические библиотеки для просмотра документов и файловых
+          вложений в 1С:Предприятии. В сборку включены отдельные viewer-библиотеки,
+          `ViewerJS` и веб-консоль `bsl_console` для редактирования и анализа BSL-кода.
         </p>
+
+        <div class="hero-grid">
+          <div class="metric">
+            <strong>Готово для Docker</strong>
+            <p>Один production-ready образ на базе <code>nginx:stable-alpine</code>.</p>
+          </div>
+          <div class="metric">
+            <strong>Статическая раздача</strong>
+            <p>Ассеты, viewer-ресурсы и BSL-консоль доступны без отдельного backend.</p>
+          </div>
+          <div class="metric">
+            <strong>Удобно для интеграции</strong>
+            <p>Есть CORS-заголовки, healthcheck и предсказуемые URL для встраивания.</p>
+          </div>
+        </div>
       </section>
 
       <section class="grid">
@@ -156,45 +214,46 @@
           <div class="links">
             <a class="link-card" href="/libs/">
               <strong>/libs/</strong>
-              Набор отдельных JavaScript-библиотек для просмотра файлов.
+              Набор отдельных JavaScript-библиотек для рендеринга файлов и документов.
             </a>
             <a class="link-card" href="/ViewerJS/">
               <strong>/ViewerJS/</strong>
-              Просмотр документов формата OpenDocumentFormat.
+              Встроенный viewer для документов формата OpenDocument.
+            </a>
+            <a class="link-card" href="/bsl_console/">
+              <strong>/bsl_console/</strong>
+              Веб-консоль BSL с Monaco Editor и встроенными ресурсами для работы с кодом 1С.
             </a>
             <a class="link-card" href="/healthz">
               <strong>/healthz</strong>
-              Служебный endpoint для healthcheck контейнера и CI smoke-test.
+              Служебный endpoint для контейнерного healthcheck и CI smoke-test.
             </a>
           </div>
         </article>
 
         <article class="panel">
-          <h2>Состав библиотек</h2>
+          <h2>Состав дистрибутива</h2>
           <ul>
-            <li>
-              <code>pdf.min.js</code> и <code>pdf.worker.min.js</code> для PDF
-            </li>
-            <li><code>mammoth.browser.min.js</code> для DOCX to HTML</li>
-            <li>
-              <code>jszip.min.js</code> и <code>docx-preview.min.js</code> для
-              DOCX preview
-            </li>
-            <li><code>webodf.js</code> для ODF-документов</li>
-            <li><code>ViewerJS</code> как bundled viewer</li>
+            <li><code>pdf.min.js</code> и <code>pdf.worker.min.js</code> для PDF.</li>
+            <li><code>mammoth.browser.min.js</code> для преобразования DOCX в HTML.</li>
+            <li><code>jszip.min.js</code> и <code>docx-preview.min.js</code> для DOCX preview.</li>
+            <li><code>webodf.js</code> и <code>ViewerJS</code> для ODF-документов.</li>
+            <li><code>bsl_console</code> с Monaco, BSL-grammar и вспомогательными модулями.</li>
           </ul>
         </article>
 
         <article class="panel">
-          <h2>Особенности сервера</h2>
+          <h2>Технические особенности</h2>
           <ul>
-            <li>Раздача через <code>nginx</code> в Docker-контейнере</li>
-            <li>Кэширование статических ассетов с долгим TTL</li>
-            <li><code>CORS</code>-заголовки для библиотечных ресурсов</li>
-            <li>
-              Отдельный healthcheck для локального запуска и GitHub Actions
-            </li>
+            <li>Статическая раздача через <code>nginx</code> внутри Docker-контейнера.</li>
+            <li>Кэширование ассетов и <code>gzip</code> для типовых ресурсов.</li>
+            <li>CORS-заголовки для библиотек, viewer-ресурсов и BSL-консоли.</li>
+            <li>Отдельный URL для консоли: <code>/bsl_console/</code> с корректным redirect со слэшем.</li>
           </ul>
+          <p class="footer">
+            Этот контейнер можно использовать как готовый статический CDN-узел внутри дипломного
+            проекта или как отдельный сервис инфраструктуры.
+          </p>
         </article>
       </section>
     </main>

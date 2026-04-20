@@ -1,7 +1,7 @@
 FROM nginx:stable-alpine
 
 LABEL org.opencontainers.image.title="file-viewer"
-LABEL org.opencontainers.image.description="Static Nginx image with bundled file-viewer libraries"
+LABEL org.opencontainers.image.description="Static Nginx image with bundled file-viewer libraries and BSL console"
 LABEL org.opencontainers.image.licenses="NOASSERTION"
 
 RUN rm -rf /usr/share/nginx/html/* \
