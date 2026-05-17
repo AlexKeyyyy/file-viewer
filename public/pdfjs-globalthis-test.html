@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>PDF.js globalThis test</title>
+
+  <script>
+  (function () {
+    if (typeof window.globalThis === "undefined") {
+      window.globalThis = window;
+    }
+
+    if (typeof globalThis === "undefined") {
+      Object.defineProperty(Object.prototype, "__magic_global_this__", {
+        get: function () {
+          return this;
+        },
+        configurable: true
+      });
+
+      __magic_global_this__.globalThis = __magic_global_this__;
+      delete Object.prototype.__magic_global_this__;
+    }
+  })();
+  </script>
+
+  <script src="/pdfjs/2.16.105/build/pdf.js"></script>
+</head>
+<body>
+  <pre id="log">Loading...</pre>
+
+  <script>
+  (function () {
+    var log = document.getElementById("log");
+
+    try {
+      if (!window.pdfjsLib) {
+        throw new Error("window.pdfjsLib не найден");
+      }
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "/pdfjs/2.16.105/build/pdf.worker.wrapper.js";
+
+      log.textContent =
+        "OK\n" +
+        "PDF.js version: " + pdfjsLib.version + "\n" +
+        "globalThis: " + !!window.globalThis + "\n" +
+        "Worker: " + !!window.Worker + "\n" +
+        "Promise: " + !!window.Promise;
+    } catch (e) {
+      log.textContent = "ERROR:\n" + (e.stack || e.message || e);
+    }
+  })();
+  </script>
+</body>
+</html>

@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.description="Static Nginx image with bundled file
 LABEL org.opencontainers.image.licenses="NOASSERTION"
 
 RUN rm -rf /usr/share/nginx/html/* \
-    && rm -f /etc/nginx/conf.d/default.conf
+  && rm -f /etc/nginx/conf.d/default.conf
 
 COPY public/ /usr/share/nginx/html/
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
